@@ -1,0 +1,16 @@
+## Chapter 7: Provisioning with Base Command Manager (BCM) — Flashcards
+
+| # | Front (Question) | Back (Answer) |
+|---|-----------------|---------------|
+| 1 | What are the two main node types in a BCM cluster architecture? | Head node (management, image repository, monitoring, scheduler control) and compute nodes (run workloads, provisioned from head node). Exam tip: the head node is the single point of cluster-wide configuration. |
+| 2 | What BCM component runs on both head and compute nodes to collect health/monitoring data? | CMDaemon. Exam tip: CMDaemon is the service behind the health dashboard, metrics, and alerts — not Slurm or Kubernetes components. |
+| 3 | What is a BCM 'category' used for? | Grouping nodes that share the same software image, roles, and configuration for bulk management. Exam tip: updating a category's image can update all member nodes at once. |
+| 4 | What is the BCM boot-time process that applies the software image to a newly PXE-booted node? | The node-installer. Exam tip: it runs before the full OS loads and syncs the node against the assigned software image. |
+| 5 | When is manual provisioning preferred over BCM? | Small scale (single node or handful of nodes), ad-hoc/dev workstations, or when the operational overhead of a head node/image management isn't justified. Exam tip: exam scenarios testing 'small/single node' point to manual, not BCM. |
+| 6 | When is BCM preferred over manual provisioning? | Multi-node clusters needing consistent images, centralized updates, health monitoring, and workload manager integration. Exam tip: keywords like 'dozens/hundreds of nodes' or 'consistent configuration' point to BCM. |
+| 7 | How does BCM relate to Slurm? | BCM provisions/manages the nodes and provides modules to deploy and integrate Slurm as the workload manager on top of the managed cluster. Exam tip: BCM ≠ Slurm; BCM manages infrastructure, Slurm schedules jobs. |
+| 8 | How does BCM relate to Kubernetes? | BCM includes setup tooling (e.g., cm-kubernetes-setup) to deploy and manage Kubernetes on BCM-provisioned nodes. Exam tip: BCM and Kubernetes are complementary, not mutually exclusive. |
+| 9 | What is the primary command-line interface for administering a BCM cluster? | cmsh (cluster management shell). Exam tip: cmsh is used for tasks like managing devices, categories, and software images from the head node. |
+| 10 | What is the GUI counterpart to cmsh in BCM? | Bright View / Base Command Manager web UI — used for visual cluster management and the health/monitoring dashboard. Exam tip: cmsh = CLI, Bright View = GUI, same underlying CMDaemon backend. |
+| 11 | What does BCM's health dashboard monitor? | Node status, hardware health, GPU status, and service health across the cluster, aggregated via CMDaemon. Exam tip: exam scenarios about 'detecting failing nodes across a cluster' point to BCM's monitoring, not manual SSH checks. |
+| 12 | What updates the software stack across many BCM-managed nodes at once? | Updating the shared software image assigned to a category, then syncing/rebooting affected nodes. Exam tip: this is the mechanism for consistent, centralized software rollout — the opposite of per-node manual updates. |
